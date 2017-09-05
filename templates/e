@@ -1,0 +1,19 @@
+<html>
+<head>
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
+</head>
+<body>
+<table>
+{% for i in newdata %}
+<tr><td>{{ i[0] }}</td><td>{{ i[1] }}</td><td id='pubkey'>{{ i[2] }}</td><td id="yue{{ i[2] }}"><a href='#' onclick="myFunction('{{ i[2] }}')">余额</a></td><td><a href="javascript:if(confirm('确实要删除吗?'))location='/api/d/{{ i[0] }}'">x</td></tr>
+{% endfor %}
+</table>
+<script>
+function myFunction(i2){
+  $.get("https://www.bitgo.com/api/v1/address/"+i2, function(result){
+    $("#yue"+i2).html(result.balance+'-'+result.confirmedBalance);
+  });
+}
+</script>
+</body>
+</html>
